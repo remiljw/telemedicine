@@ -35,6 +35,7 @@ class AddDoctorView(CreateAPIView):
     serializer_class = AddDoctorSerializer
     permission_classes = (IsAdminUser,)
 
+
     def post(self, request):
         serializer = self.serializer_class(data= request.data)
         if serializer.is_valid(raise_exception=True):
