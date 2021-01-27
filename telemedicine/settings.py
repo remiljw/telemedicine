@@ -26,9 +26,9 @@ SECRET_KEY = '@(^nz2fw*y)ive%v_&2kd)d315o%1lh*$)5+#@v*pf!y*pi)v_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-
+CORS_ALLOWED_ORIGINS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appointments',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -136,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'))
 
 JWT_AUTH = {
     'JWT_ENCODE_HANDLER':
