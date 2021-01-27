@@ -1,4 +1,5 @@
 import uuid
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
@@ -40,9 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserAccountManager()
 
-
-class Calendar(models.Model):
-    pass
+    def __str__(self):
+        return self.email
 
 
 class Doctor(models.Model):
@@ -50,21 +50,45 @@ class Doctor(models.Model):
    first_name = models.CharField(max_length=255) 
    last_name = models.CharField(max_length=255) 
    specialty = models.CharField(max_length=255) 
-   availability = models.ForeignKey(Calendar, on_delete=models.CASCADE, null=True)
+
+   def __str__(self):
+       return self.first_name
+   
+#    availability = models.ForeignKey(Calendar, on_delete=models.CASCADE, null=True)
+
+class Calendar(models.Model):
+    date = models.DateField(default=timezone.now)
+    owner = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True)
+    
+    # def __str__(self):
+    #     return self.date.
+
 
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255) 
     last_name = models.CharField(max_length=255) 
-    date_of_birth = models.CharField(max_length=255) 
+    date_of_birth = models.DateField() 
     address = models.CharField(max_length=255) 
    
+    def __str__(self):
+        return self.first_name
 
+
+
+TIMESLOT_LIST = (
+        ('09:00 – 10:00', '09:00 – 10:00'),
+        ('10:00 – 11:00', '10:00 – 11:00'),
+        ('11:00 – 12:00', '11:00 – 12:00'),
+        ('12:00 – 13:00', '12:00 – 13:00'),
+        ('13:00 – 14:00', '13:00 – 14:00'),
+    )
 class Appointment(models.Model):
     doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE)
-    date = models.DateField()
-    time = models.TimeField()
+    date = models.ForeignKey(Calendar, on_delete=models.CASCADE)
+    time = models.CharField(max_length=50, choices=TIMESLOT_LIST, unique=True)
     reason_for_visit = models.CharField(max_length=255)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
-
+    # def __str__(self):
+    #     return self.reason_for_visit

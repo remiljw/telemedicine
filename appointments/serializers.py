@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import update_last_login
 from django.contrib.auth import get_user_model, authenticate
-from .models import User, Appointment, Doctor, Patient
+from .models import Appointment, Doctor, Patient, Calendar
 from rest_framework_jwt.settings import api_settings
 
 User = get_user_model()
@@ -19,10 +19,13 @@ class PatientSerializer(serializers.ModelSerializer):
         model = Patient
         fields = ('first_name', 'last_name', 'date_of_birth', 'address')
 
-
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email',)
 
 class PatientSignUpSerializer(serializers.ModelSerializer):
-    patient = PatientSerializer(required=False)
+    patient = PatientSerializer(required=True)
 
     class Meta:
         model = User
@@ -42,7 +45,7 @@ class PatientSignUpSerializer(serializers.ModelSerializer):
         return user
 
 class AddDoctorSerializer(serializers.ModelSerializer):
-    doctor = DoctorSerializer(required=False)
+    doctor = DoctorSerializer(required=True)
 
     class Meta:
         model = User
@@ -89,3 +92,19 @@ class UserLoginSerializer(serializers.Serializer):
             'email':user.email,
             'token': jwt_token
         }
+class CalendarSerializer(serializers.ModelSerializer):
+    owner = serializers.SlugRelatedField(slug_field='first_name', read_only=True)
+    class Meta:
+        model = Calendar
+        fields = ('__all__')
+
+
+class AppointmentSerializer(serializers.ModelSerializer):
+    patient = serializers.SlugRelatedField(slug_field='first_name', read_only=True)
+    # patient = UserSerializer(many=False, read_only=True)
+    # date = serializers.SlugRelatedField(slug_field='date', read_only=True)
+    class Meta:
+        model = Appointment
+        fields = ('__all__')
+
+
