@@ -61,10 +61,14 @@ API built with DRF for a telemedicine app to book hospital appointments.
  - Can be accessed by all patients, to book appointments based on their doctor of choice availability. Date and Doctor fields accepts only integers which are the id of the doctor and the available date.
 ```
 payload = {
-      'doctor' : 'doctor_id',
-      'date' : 'date_id',
+      'doctor' : 1, #doctor_id
+      'date' : 1, #date_id
       'reason_for_visit' : Sore Throat'
-      'time' :  '' 
+      'time' :  1  # options ranges from 1 - 5 as they stand for key for the value of time. ('1', '09:00 – 10:00'),
+                                                                                               #('2', '10:00 – 11:00'),
+                                                                                              # ('3', '11:00 – 12:00'),
+                                                                                               #('4', '12:00 – 13:00'),
+                                                                                               #('5', '13:00 – 14:00'),
       }
 ```
       
@@ -72,6 +76,13 @@ payload = {
 - All end points need authentication to access except `signin/` and `patient-signup/`.
 - Get your token from the `signin/` endpoint and add it to the request headers.
 ```
-    (AUTHORIZATION='Bearer ' + yourtoken)
+    (Authorization : 'Bearer ' + yourtoken)
 ```
 - You are good to go. 👍🏾
+
+## Credentials
+- Here is the credential for the admin
+```
+   email : admin@test.com
+   password: telemedicine
+```
