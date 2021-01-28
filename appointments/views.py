@@ -1,3 +1,5 @@
+from datetime import datetime, date
+from .utils import validate_dates
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -47,7 +49,7 @@ class AddDoctorView(CreateAPIView):
             'status code' : status_code,
             'message' : 'Doctor added successfully'
             }
-            return Response(response, status=status_code)
+            return Response(serializer.data, status=status_code)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
@@ -81,13 +83,32 @@ class CalendarView(CreateAPIView):
     serializer_class = CalendarSerializer
     permission_classes = (IsDoctor,)
 
+    # @validate_dates
     def post(self, request):
+        check_date = request.data['date']
+        new_date = datetime.strptime(check_date, '%Y-%m-%d').date()
+        today = date.today()
+        if new_date < today:
+            return Response('Date cannot be yesterday or before', status=status.HTTP_400_BAD_REQUEST)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save(owner=request.user.doctor)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

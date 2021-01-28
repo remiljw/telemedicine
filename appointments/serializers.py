@@ -3,6 +3,7 @@ from django.contrib.auth.models import update_last_login
 from django.contrib.auth import get_user_model, authenticate
 from .models import Appointment, Doctor, Patient, Calendar
 from rest_framework_jwt.settings import api_settings
+import datetime
 
 User = get_user_model()
 
@@ -52,9 +53,13 @@ class AddDoctorSerializer(serializers.ModelSerializer):
         fields = ('email', 'password', 'doctor')
         extra_kwargs = {'password' : {'write_only' : True}}
 
+
+
     def create(self, validated_data):
         doctor_data = validated_data.pop('doctor')
         user = User.objects.create_user(**validated_data)
+        user.is_doctor = True
+        user.save()
         Doctor.objects.create(
             user = user,
             first_name = doctor_data['first_name'],
@@ -97,6 +102,8 @@ class CalendarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Calendar
         fields = ('__all__')
+
+
 
 
 class AppointmentSerializer(serializers.ModelSerializer):

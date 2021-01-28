@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from.models import Doctor
+# from.models import Doctor
 
 class IsDoctor(permissions.BasePermission):
 
@@ -10,9 +10,15 @@ class IsDoctor(permissions.BasePermission):
         user = request.user
         if user.is_anonymous:
             return False
-        try:
-            doctor = user.doctor
-        except Doctor.DoesNotExist:
-            self.message = ("Permission denied, user is not a doctor")
+        
+        if user.is_doctor == True:
+            return True
+        else:
+            self.message = ('Permission denied, user is not a doctor')
             return False
-        return user == user.doctor
+        # try:
+        #     user.is_doctor = True
+        # except Doctor.DoesNotExist:
+        #     self.message = ("Permission denied, user is not a doctor")
+        #     return False
+        # return user == user.doctor

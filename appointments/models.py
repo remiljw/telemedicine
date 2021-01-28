@@ -2,7 +2,7 @@ import uuid
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+import datetime
 # Create your models here.
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -33,6 +33,7 @@ class UserAccountManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(max_length=255, unique=True)
+    is_doctor = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -52,12 +53,12 @@ class Doctor(models.Model):
    specialty = models.CharField(max_length=255) 
 
    def __str__(self):
-       return self.first_name
+       return self.user.email
    
 #    availability = models.ForeignKey(Calendar, on_delete=models.CASCADE, null=True)
 
 class Calendar(models.Model):
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(blank=False, null=False)
     owner = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True)
     
     # def __str__(self):
@@ -72,7 +73,7 @@ class Patient(models.Model):
     address = models.CharField(max_length=255) 
    
     def __str__(self):
-        return self.first_name
+        return self.user.email
 
 
 

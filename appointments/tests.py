@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
+from datetime import date
 from rest_framework.test import APITestCase
 from .models import Patient, Doctor
 from .serializers import PatientSerializer, DoctorSerializer
@@ -93,14 +94,14 @@ class AppointmentsAPITests(APITestCase):
 
 
    
-    # def test_doc_calendar(self):
-    #     url = reverse('appointments:doc-calendar')
-    #     data = {
-    #         'date' : '2021-01-30'
-    #     }
-    #     self.test_doctor_token()
-    #     response = self.client.post(url, data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    def test_doc_calendar(self):
+        url = reverse('appointments:doc-calendar')
+        data = {
+            'date' : date.today()
+        }
+        self.test_doctor_token()
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
    
     
