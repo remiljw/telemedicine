@@ -7,7 +7,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
 
 ## Endpoints
 
-### https://telemed-api.herokuapp.com/api/patientsignup/
+### https://telemed-api.herokuapp.com/api/patient-signup/
 - Anyone can access this endpoint, it is meant to register new patients into the system.
 
 ```
