@@ -8,6 +8,8 @@ from .serializers import PatientSerializer, DoctorSerializer
 # Create your tests here.
 User = get_user_model()
 
+
+
 class AppointmentsAPITests(APITestCase):
     def test_patient_account(self):
         url = reverse('appointments:patient-signup')
@@ -25,12 +27,14 @@ class AppointmentsAPITests(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-   
-
-    def test_admin_token(self):
+    def test_create_admin(self):
         User.objects.create_superuser(
             email='test@admin.com', password='MasterPW200'
         )
+
+
+    def test_admin_token(self):
+        self.test_create_admin()
         url = reverse('appointments:signin')
         data = {
             'email' : 'test@admin.com',
@@ -65,7 +69,7 @@ class AppointmentsAPITests(APITestCase):
         url = reverse('appointments:signin')
         data = {
             'email' : 'doctor@test.com',
-            'password': 'TestDoctor@22'
+            'password': 'TestDoctor@22',
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -89,26 +93,27 @@ class AppointmentsAPITests(APITestCase):
 
 
    
-    def test_doc_calendar(self):
-        url = reverse('appointments:doc-calendar')
-        data = {
-            'date' : '2021-01-30'
-        }
-        self.test_doctor_token()
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    # def test_doc_calendar(self):
+    #     url = reverse('appointments:doc-calendar')
+    #     data = {
+    #         'date' : '2021-01-30'
+    #     }
+    #     self.test_doctor_token()
+    #     response = self.client.post(url, data, format='json')
+    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
    
     
-    def test_appointment(self, request):
+    def test_appointment_no_auth(self):
         url = reverse('appointments:book-appointment')
         data = {
             'doctor' : 'James',
             'date' : '2021-01-30',
             'time' : '09:00 – 10:00',
             'reason_for_visit': 'Sore Throat',
-            'patient' : request.user.patient
+            # 'patient' : request.user.patient
         }
-        self.test_patient_token()
+        # self.test_patient_token()
         response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        print(response)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
