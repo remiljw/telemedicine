@@ -105,16 +105,17 @@ class AppointmentsAPITests(APITestCase):
 
    
     
-    def test_appointment_no_auth(self):
+    def test_appointment(self):
+        self.test_doc_calendar()
+        self.test_patient_token()
         url = reverse('appointments:book-appointment')
         data = {
-            'doctor' : 'James',
-            'date' : '2021-01-30',
-            'time' : '09:00 – 10:00',
+            'doctor' : 1,
+            'date' : 1,
+            'time' : 2,
             'reason_for_visit': 'Sore Throat',
-            # 'patient' : request.user.patient
+            
         }
-        # self.test_patient_token()
+        
         response = self.client.post(url, data, format='json')
-        print(response)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
