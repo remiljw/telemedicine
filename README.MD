@@ -7,7 +7,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
 
 ## Endpoints
 
-### `patientsignup/`
+### https://telemed-api.herokuapp.com/api/patientsignup/
 - Anyone can access this endpoint, it is meant to register new patients into the system.
 
 ```
@@ -22,7 +22,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
               }
        } 
  ```
- ### `signin/`
+ ### https://telemed-api.herokuapp.com/api/signin/
  - All users sign in here and get JWT tokens, which are used to access the remaining endpoints.
  ```
   payload = {
@@ -34,7 +34,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
         }
  ```
  
- ### `add-doctor/`
+ ### https://telemed-api.herokuapp.com/api/add-doctor/
  - Only Admin Users have access to this endpoint. They add doctors to the system. Token is needed for authentication, which is gotten from the `signin/` endpoint.
  ```
    payload =  { 
@@ -49,7 +49,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
        } 
  ```
  
- ### `doc-calendar/`
+ ### https://telemed-api.herokuapp.com/api/doc-calendar/
  - Only doctors have access to this endpoint, they create their availability here. Token is needed for authentication, which is gotten from the `signin/` endpoint.
  ```
  payload = {
@@ -57,7 +57,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
               }
  ```
  
- ### `appointment/`
+ ### https://telemed-api.herokuapp.com/api/appointment/
  - Can be accessed by all patients, to book appointments based on their doctor of choice availability. Date and Doctor fields accepts only integers which are the id of the doctor and the available date.
 ```
 payload = {
@@ -83,6 +83,6 @@ payload = {
 ## Credentials
 - Here is the credential for the admin
 ```
-   email : admin@test.com
-   password: telemedicine
+   email : drno@med.com
+   password: bond007
 ```
