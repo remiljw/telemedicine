@@ -1,4 +1,4 @@
 # TeleMedicine API
 
 [![CircleCI](https://circleci.com/gh/remiljw/telemedicine.svg?style=svg)](https://circleci.com/gh/remiljw/telemedicine)
-![example workflow file path](https://github.com/remiljw/telemedicine/.github/workflows/django.yml/badge.svg)
+![Django CI](https://github.com/actions/remiljw/workflows/Django%20CI/badge.svg)
