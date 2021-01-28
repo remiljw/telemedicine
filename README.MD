@@ -57,7 +57,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
               }
  ```
  
- ### https://telemed-api.herokuapp.com/api/appointment/
+ ### https://telemed-api.herokuapp.com/api/book-appointment/
  - Can be accessed by all patients, to book appointments based on their doctor of choice availability. Date and Doctor fields accepts only integers which are the id of the doctor and the available date.
 ```
 payload = {
