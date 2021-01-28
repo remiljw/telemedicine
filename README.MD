@@ -86,3 +86,6 @@ payload = {
    email : drno@med.com
    password: bond007
 ```
+## Miscellaneous
+
+You can also test via the browsable apis by clicking on the links, and login where necessary.
