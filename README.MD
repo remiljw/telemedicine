@@ -7,7 +7,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
 
 ## Endpoints
 
-### patientsignup/
+### `patientsignup/`
 - Anyone can access this endpoint, it is meant to register new patients into the system.
 
 ```
@@ -22,7 +22,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
               }
        } 
  ```
- ### signin/
+ ### `signin/`
  - All users sign in here and get JWT tokens, which are used to access the remaining endpoints.
  ```
   payload = {
@@ -34,7 +34,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
         }
  ```
  
- ### add-doctor/
+ ### `add-doctor/`
  - Only Admin Users have access to this endpoint. They add doctors to the system. Token is needed for authentication, which is gotten from the `signin/` endpoint.
  ```
    payload =  { 
@@ -49,7 +49,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
        } 
  ```
  
- ### doc-calendar/
+ ### `doc-calendar/`
  - Only doctors have access to this endpoint, they create their availability here. Token is needed for authentication, which is gotten from the `signin/` endpoint.
  ```
  payload = {
@@ -57,7 +57,7 @@ API built with DRF for a telemedicine app to book hospital appointments.
               }
  ```
  
- ### appointment/
+ ### `appointment/`
  - Can be accessed by all patients, to book appointments based on their doctor of choice availability. Date and Doctor fields accepts only integers which are the id of the doctor and the available date.
 ```
 payload = {
