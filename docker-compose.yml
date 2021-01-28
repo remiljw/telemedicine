@@ -7,5 +7,6 @@ services:
     container_name: code
     volumes:
       - .:/code
+      - db.sqlite3
     ports:
       - "8000:8000"
