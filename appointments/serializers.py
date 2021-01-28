@@ -109,7 +109,7 @@ class CalendarSerializer(serializers.ModelSerializer):
 class AppointmentSerializer(serializers.ModelSerializer):
     patient = serializers.SlugRelatedField(slug_field='first_name', read_only=True)
     # patient = UserSerializer(many=False, read_only=True)
-    # date = serializers.SlugRelatedField(slug_field='date', read_only=True)
+    # date = Calendar.objects.filter(date)
     class Meta:
         model = Appointment
         fields = ('__all__')

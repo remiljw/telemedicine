@@ -61,8 +61,8 @@ class Calendar(models.Model):
     date = models.DateField(blank=False, null=False)
     owner = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True)
     
-    # def __str__(self):
-    #     return self.date.
+    def __str__(self):
+        return str(self.date)
 
 
 class Patient(models.Model):
@@ -78,18 +78,18 @@ class Patient(models.Model):
 
 
 TIMESLOT_LIST = (
-        ('09:00 – 10:00', '09:00 – 10:00'),
-        ('10:00 – 11:00', '10:00 – 11:00'),
-        ('11:00 – 12:00', '11:00 – 12:00'),
-        ('12:00 – 13:00', '12:00 – 13:00'),
-        ('13:00 – 14:00', '13:00 – 14:00'),
+        ('1', '09:00 – 10:00'),
+        ('2', '10:00 – 11:00'),
+        ('3', '11:00 – 12:00'),
+        ('4', '12:00 – 13:00'),
+        ('5', '13:00 – 14:00'),
     )
 class Appointment(models.Model):
     doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE)
     date = models.ForeignKey(Calendar, on_delete=models.CASCADE)
-    time = models.CharField(max_length=50, choices=TIMESLOT_LIST, unique=True)
+    time = models.CharField(max_length=50, choices=TIMESLOT_LIST)
     reason_for_visit = models.CharField(max_length=255)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
-    # def __str__(self):
-    #     return self.reason_for_visit
+    def __str__(self):
+        return self.patient.user.email
