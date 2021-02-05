@@ -10,15 +10,15 @@ API built with DRF for a telemedicine app to book hospital appointments.
 ### https://telemed-api.herokuapp.com/api/patient-signup/
 - Anyone can access this endpoint, it is meant to register new patients into the system.
 
-```
+```python
    payload =  { 
-      'email' : 'test@test.com' ,
-      'password' : 'iamapatient',
-      'patient' : {
-              'first_name' : 'John'
-              'last_name' : 'Doe'
-              'date_of_birth' : '1999-01-24' #Date_of_birth must be in 'YYYY-MM-DD' format.
-              'address': '17, Highway Street, Lagos.'
+      "email" : "test@test.com" ,
+      "password" : "iamapatient",
+      "patient" : {
+              "first_name" : "John",
+              "last_name" : "Doe",
+              "date_of_birth" : "1999-01-24", #Date_of_birth must be in 'YYYY-MM-DD' format.
+              "address": "17, Highway Street, Lagos."
               }
        } 
  ```
