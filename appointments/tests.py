@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.contrib.auth import get_user_model
+from django.contrib.auth import 
 from django.urls import reverse
 from rest_framework import status
 from datetime import date
@@ -69,11 +69,11 @@ class AppointmentsAPITests(APITestCase):
         self.test_doctor_account()
         url = reverse('appointments:signin')
         data = {
-            'email' : 'doctor@test.com',
+            'email' : 'doctor@test.com
             'password': 'TestDoctor@22',
         }
         response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK
         self.assertTrue('token' in response.data)
         token = response.data['token']
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
@@ -94,7 +94,7 @@ class AppointmentsAPITests(APITestCase):
 
 
    
-    def test_doc_calendar(self):
+    def test_doc_calendar(self
         url = reverse('appointments:doc-calendar')
         data = {
             'date' : date.today()
@@ -105,7 +105,7 @@ class AppointmentsAPITests(APITestCase):
 
    
     
-    def test_appointment(self):
+    def test_appointment(self
         self.test_doc_calendar()
         self.test_patient_token()
         url = reverse('appointments:book-appointment')
