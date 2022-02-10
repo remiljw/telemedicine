@@ -87,7 +87,7 @@ class AppointmentsAPITests(APITestCase):
             'password': 'TestPatient@21'
         }
         response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue('token' in response.data)
         token = response.data['token']
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
@@ -118,4 +118,4 @@ class AppointmentsAPITests(APITestCase):
         }
         
         response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
